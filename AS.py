@@ -9,27 +9,10 @@ random.seed(100)
 
 
 class AvellanedaStoikov:
-    """
-    Our aim in this class is to implement the Avellaneda-Stoikov model.
-    Notations:
-    - s(t): fair price process of the underlying stock
-    - x(t): cash process
-    - q(t): stock inventory (how many stocks the market maker is holding)
-
-    In this case, we assume that the price moves in the dynamics of a Brownian motion.
-    Stock inventory moves in Poisson process.
-    """
+    
 
     def __init__(self, S0, T, model: str):
-        """
-
-        :param S0: initial stock price
-        :param q: stock inventory
-        :param sigma: volatility of the underlying
-        :param T: maturity of the simulation
-        :param gamma: risk aversion coefficient
-        :param k: liquidity value
-        """
+        
 
         # Variable models
         self.S0 = S0
@@ -62,19 +45,11 @@ class AvellanedaStoikov:
         
     @staticmethod
     def sigmoid(x):
-        """
-        Method that returns the sigmoid value.
-        :param x: float.
-        :return: float. Sigmoid value of given x.
-        """
-
+        
         return 1 / (1 + math.exp(-x))
 
     def execute(self):
-        """
-        Method to return simulated price paths of the price
-        :return: -
-        """
+       
         prices = np.zeros(self.n_steps)
         prices[0] = self.S0
 
@@ -166,47 +141,19 @@ class AvellanedaStoikov:
     def visualize(self):
         time_steps = list(range(self.n_steps))
         sns.color_palette("hls", 8)
-        fig, ax = plt.subplots(4, 1,
-                               gridspec_kw={'height_ratios': [3, 1, 1, 3]},
-                               sharex=True,
-                               figsize=(20, 10))
+        fig, ax = plt.subplots(4, 1,gridspec_kw={'height_ratios': [3, 1, 1, 3]},sharex=True,figsize=(20, 10))
 
        
-        g1_1 = sns.lineplot(x=time_steps,
-                            y=self.prices,
-                            ax=ax[0],
-                            label='Fair Value')
+        g1_1 = sns.lineplot(x=time_steps,y=self.prices,ax=ax[0],label='Fair Value')
 
-        g1_bid = sns.lineplot(x=time_steps,
-                              y=self.bidPrice,
-                              ax=ax[0],
-                              label='Bid Price',
-                              alpha=0.6,
-                              linestyle='--')
+        g1_bid = sns.lineplot(x=time_steps,y=self.bidPrice,ax=ax[0],label='Bid Price',alpha=0.6,linestyle='--')
 
-        g1_ask = sns.lineplot(x=time_steps,
-                              y=self.askPrice,
-                              ax=ax[0],
-                              label='Ask Price',
-                              alpha=0.6,
-                              linestyle='--')
+        g1_ask = sns.lineplot(x=time_steps,y=self.askPrice,ax=ax[0],label='Ask Price',alpha=0.6,linestyle='--')
 
-        g1_2 = sns.lineplot(x=time_steps,
-                            y=self.orders,
-                            ax=ax[1],
-                            label='Inventory',
-                            drawstyle='steps-pre')
+        g1_2 = sns.lineplot(x=time_steps,y=self.orders,ax=ax[1],label='Inventory',drawstyle='steps-pre')
 
-        g1_3 = sns.lineplot(x=time_steps,
-                            y=self.cashflow,
-                            ax=ax[2],
-                            label='Cash flow',
-                            drawstyle='steps-pre')
+        g1_3 = sns.lineplot(x=time_steps,y=self.cashflow,ax=ax[2],label='Cash flow',drawstyle='steps-pre')
 
-        g1_4 = sns.lineplot(x=time_steps,
-                            y=self.pnl,
-                            ax=ax[3],
-                            label='PnL',
-                            drawstyle='steps-pre')
+        g1_4 = sns.lineplot(x=time_steps,y=self.pnl,ax=ax[3],label='PnL',drawstyle='steps-pre')
 
         plt.show()
